@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UI
   - DMScreen
+  - Symbols
   layers:
   - Default
   - TransparentFX

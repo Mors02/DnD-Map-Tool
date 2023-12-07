@@ -16,6 +16,8 @@ public class UI : MonoBehaviour
     CameraMovement cm;
     KeyboardCommands sl;
 
+    Symbols symbols;
+
     Location currentLocation;
 
     [SerializeField]
@@ -27,6 +29,7 @@ public class UI : MonoBehaviour
         this.rect = gameObject.GetComponent<RectTransform>();
         cm = Camera.main.GetComponent<CameraMovement>();
         sl = Camera.main.GetComponent<KeyboardCommands>();
+        symbols = GameObject.FindGameObjectWithTag("Symbols").GetComponent<Symbols>();
         this.OnClose();       
     }
     
@@ -38,7 +41,7 @@ public class UI : MonoBehaviour
 
     public void Save()
     {
-        this.currentLocation.Save(nameText.text, 0);
+        this.currentLocation.Save(nameText.text, symbols.lastSelected);
         this.OnClose();
     }
 
@@ -56,6 +59,7 @@ public class UI : MonoBehaviour
         this.rect.anchoredPosition = openPosition;
         this.currentLocation = location;
         nameText.text = location.locationName;
+        symbols.SetSelected(location.imageIndex);
     }
 
     public void Hide()

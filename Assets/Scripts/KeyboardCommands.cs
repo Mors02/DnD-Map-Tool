@@ -11,7 +11,13 @@ public class KeyboardCommands : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
+<<<<<<< Updated upstream
 
+=======
+        screen = GameObject.FindGameObjectWithTag("DMScreen");
+        if (screen != null)
+            screen.SetActive(false);
+>>>>>>> Stashed changes
     }
 
     private void Update()
@@ -29,7 +35,12 @@ public class KeyboardCommands : MonoBehaviour
         //show dm screen
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D))
         {
+<<<<<<< Updated upstream
 
+=======
+            if (screen != null)
+                screen.SetActive(!screen.activeSelf);
+>>>>>>> Stashed changes
         }
 
         //save
