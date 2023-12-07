@@ -8,6 +8,8 @@ public class ButtonClick : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     Location location;
 
+    UI ui;
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -16,15 +18,13 @@ public class ButtonClick : MonoBehaviour, IPointerClickHandler
         } 
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            location.Hide();
+            ui.Open(location);
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        
+        ui = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
     }
-    
 
 }

@@ -39,4 +39,11 @@ public class Location : MonoBehaviour
     {
         anim.SetTrigger("Hide");
     }
+
+    public void Save(string name, int imageIndex)
+    {
+        this.locationName = name;
+        this.text.text = locationName;
+        //get the correct symbol sprite from the gameassets based on the imageindex returned
+    }
 }
