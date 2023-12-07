@@ -30,4 +30,5 @@ public class GameAssets : MonoBehaviour
 
     [Header("Prefab")]
     public GameObject locationPrefab;
+    public GameObject buttonPrefab;
 }

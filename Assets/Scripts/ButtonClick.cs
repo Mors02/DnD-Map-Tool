@@ -9,12 +9,16 @@ public class ButtonClick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     Location location;
 
     UI ui;
-
+    
     bool dragging = false;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Invoke("IsDragging", 0.2f);
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Invoke("IsDragging", 0.2f);
+        }
+
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             ui.Open(location);

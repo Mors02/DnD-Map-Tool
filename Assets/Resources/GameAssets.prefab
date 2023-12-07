@@ -44,5 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b63f64a2b44134abf4fffe26df0dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSymbols: []
+  mapSymbols:
+  - {fileID: 21300000, guid: df09e3940ba39494f819a9a788966980, type: 3}
+  - {fileID: 21300000, guid: 92e965e61a45aa64c81ae18ba7b97e18, type: 3}
+  - {fileID: 21300000, guid: d3b12dc50dced2443bef4f0b0e9ff93e, type: 3}
+  - {fileID: 21300000, guid: 65e542c59cec59a4f8b6f9657d01d815, type: 3}
+  - {fileID: 21300000, guid: 7b7ccb12692a17447912d348260991b5, type: 3}
+  - {fileID: 21300000, guid: 0b01f37751fe90940aaa3aba73de5c0a, type: 3}
+  - {fileID: 21300000, guid: f526f22fe9342aa4499603bfd1a6e139, type: 3}
+  - {fileID: 21300000, guid: bb6848aec6dbab648b078c56b071a2da, type: 3}
   locationPrefab: {fileID: 7696654249886556055, guid: 11e53eac25fce744e8a40a996c783ca7, type: 3}
+  buttonPrefab: {fileID: 6456629423863951820, guid: 565e274a0cff6dd43864e4048eb93e8b, type: 3}

@@ -13,7 +13,6 @@ public class Location : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
-    public Sprite symbol;
     public string locationName;
 
     [SerializeField]
@@ -21,12 +20,13 @@ public class Location : MonoBehaviour
 
     [SerializeField]
     private TMP_Text text;
+
+    public int imageIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
         canvas.worldCamera = Camera.main;
-        text.text = locationName;
-        image.sprite = symbol;
+        this.Save(locationName, imageIndex);
     }
 
     public void Reveal()
@@ -44,6 +44,8 @@ public class Location : MonoBehaviour
     {
         this.locationName = name;
         this.text.text = locationName;
+        this.image.sprite = GameAssets.i.mapSymbols[imageIndex];
+        this.imageIndex = imageIndex;
         //get the correct symbol sprite from the gameassets based on the imageindex returned
     }
 }
