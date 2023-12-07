@@ -3,23 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonClick : MonoBehaviour, IPointerClickHandler
+public class ButtonClick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     [SerializeField]
     Location location;
 
     UI ui;
 
-    public void OnPointerClick(PointerEventData eventData)
+    bool dragging = false;
+
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            location.Reveal();
-        } 
-        else if (eventData.button == PointerEventData.InputButton.Right)
+        Invoke("IsDragging", 0.2f);
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             ui.Open(location);
         }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left && !dragging)
+        {
+            location.Reveal();
+        }
+        dragging = false;
+    }
+
+    public void IsDragging()
+    {
+        dragging = true;
     }
 
     public void Start()
