@@ -14,6 +14,7 @@ public class UI : MonoBehaviour
     private RectTransform rect;
 
     CameraMovement cm;
+    KeyboardCommands sl;
 
     Location currentLocation;
 
@@ -25,6 +26,7 @@ public class UI : MonoBehaviour
     {
         this.rect = gameObject.GetComponent<RectTransform>();
         cm = Camera.main.GetComponent<CameraMovement>();
+        sl = Camera.main.GetComponent<KeyboardCommands>();
         this.OnClose();       
     }
     
@@ -43,12 +45,14 @@ public class UI : MonoBehaviour
     private void OnClose()
     {
         cm.dragging = false;
+        sl.dragging = false;
         this.rect.anchoredPosition = closePosition;
     }
 
     public void Open(Location location)
     {
         cm.dragging = true;
+        sl.dragging = true;
         this.rect.anchoredPosition = openPosition;
         this.currentLocation = location;
         nameText.text = location.locationName;
