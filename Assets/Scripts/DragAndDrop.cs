@@ -8,23 +8,23 @@ public class DragAndDrop : MonoBehaviour
     private bool dragging = false;
     private Vector3 offset;
     CameraMovement cm;
+    KeyboardCommands sl;
 
     private void Start()
     {
         cm = Camera.main.GetComponent<CameraMovement>();
+        sl = Camera.main.GetComponent<KeyboardCommands>();
     }
 
     private void OnMouseDown()
     {
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        dragging = true;
-        cm.dragging = true;
+        dragging = sl.dragging = cm.dragging = true;
     }
 
     private void OnMouseUp()
     {
-        dragging = false;
-        cm.dragging = false;
+        dragging = cm.dragging = sl.dragging = false;
     }
 
     private void Update()
