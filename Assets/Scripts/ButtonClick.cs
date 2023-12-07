@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonClick : MonoBehaviour, IPointerClickHandler
+public class ButtonClick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     [SerializeField]
     Location location;
 
     UI ui;
-
-<<<<<<< Updated upstream
-    public void OnPointerClick(PointerEventData eventData)
-=======
+    
     bool dragging = false;
 
     public void OnPointerDown(PointerEventData eventData)
@@ -29,16 +26,17 @@ public class ButtonClick : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerUp(PointerEventData eventData)
->>>>>>> Stashed changes
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && !dragging)
         {
             location.Reveal();
-        } 
-        else if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            ui.Open(location);
         }
+        dragging = false;
+    }
+
+    public void IsDragging()
+    {
+        dragging = true;
     }
 
     public void Start()
