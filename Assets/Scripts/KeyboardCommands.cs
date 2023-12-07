@@ -9,7 +9,9 @@ public class KeyboardCommands : MonoBehaviour
     // Start is called before the first frame update
     Camera cam;
 
-    GameObject screen; 
+    GameObject screen;
+
+    GameObject locationList;
 
     private void Start()
     {
@@ -18,6 +20,8 @@ public class KeyboardCommands : MonoBehaviour
         screen = GameObject.FindGameObjectWithTag("DMScreen");
         if (screen != null)
             screen.SetActive(false);
+
+        this.locationList = GameObject.FindGameObjectWithTag("LocationList");
 
     }
 
@@ -30,7 +34,9 @@ public class KeyboardCommands : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.E))
         {
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Instantiate(GameAssets.i.locationPrefab, pos, Quaternion.identity);
+            GameObject loc = Instantiate(GameAssets.i.locationPrefab, pos, Quaternion.identity);
+            loc.transform.SetParent(locationList.transform);
+
         }
 
         //show dm screen
@@ -41,9 +47,9 @@ public class KeyboardCommands : MonoBehaviour
         }
 
         //save
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
-
+            locationList.GetComponent<SavingSystem>().Save();
         }
     }
 }

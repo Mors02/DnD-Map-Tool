@@ -22,6 +22,8 @@ public class Location : MonoBehaviour
     private TMP_Text text;
 
     public int imageIndex = 0;
+
+    public bool hidden = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +34,18 @@ public class Location : MonoBehaviour
     public void Reveal()
     {
         anim.SetTrigger("Reveal");
-        Debug.Log("CLick su " + this.gameObject.name);
+        hidden = false;        
+    }
+
+    private void InstaReveal()
+    {
+        anim.SetTrigger("InstaReveal");
     }
 
     public void Hide()
     {
         anim.SetTrigger("Hide");
+        hidden = true;
     }
 
     public void Save(string name, int imageIndex)
@@ -45,7 +53,16 @@ public class Location : MonoBehaviour
         this.locationName = name;
         this.text.text = locationName;
         this.image.sprite = GameAssets.i.mapSymbols[imageIndex];
-        this.imageIndex = imageIndex;
         //get the correct symbol sprite from the gameassets based on the imageindex returned
+        this.imageIndex = imageIndex;        
+    }
+
+    public void Load(string name, int imageIndex, bool hidden)
+    {
+        Save(name, imageIndex);
+        if (!hidden)
+        {
+            this.Reveal();
+        }
     }
 }
