@@ -40,6 +40,12 @@ public class UI : MonoBehaviour
         this.OnClose();
     }
 
+    public void Lock(bool isLocked)
+    {
+        Debug.Log(isLocked);
+        currentLocation.GetComponent<DragAndDrop>().enabled = !isLocked;
+    }
+
     private void OnClose()
     {
         cm.dragging = false;

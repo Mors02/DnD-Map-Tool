@@ -45,5 +45,7 @@ public class Location : MonoBehaviour
         this.locationName = name;
         this.text.text = locationName;
         //get the correct symbol sprite from the gameassets based on the imageindex returned
+
+        
     }
 }
