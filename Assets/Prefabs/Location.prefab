@@ -462,7 +462,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -629,6 +629,7 @@ MonoBehaviour:
   image: {fileID: 2720967529179581675}
   text: {fileID: 3373134717474095444}
   imageIndex: 0
+  hidden: 1
 --- !u!95 &8496941894859755540
 Animator:
   serializedVersion: 5
@@ -781,7 +782,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 0
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
