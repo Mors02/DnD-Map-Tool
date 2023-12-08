@@ -60,10 +60,15 @@ public class SavingSystem : MonoBehaviour
     }
     
 
-    void Load()
+    public bool Load()
     {
         if (File.Exists(locationPath))
         {
+            foreach(Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
+
             string encodedText = File.ReadAllText(locationPath);
             byte[] decodedBytes = Convert.FromBase64String(encodedText);
             string json = Encoding.UTF8.GetString(decodedBytes);
@@ -78,6 +83,8 @@ public class SavingSystem : MonoBehaviour
                 loc.GetComponent<Location>().Load(location.lName, location.iIndex, location.hidden);
             }
         }
+        else 
+            return false;
 
         if (File.Exists(partyPath))
         {
@@ -89,9 +96,13 @@ public class SavingSystem : MonoBehaviour
             Vector2 pos = new Vector2(partyData.x, partyData.y);
             GameObject party = GameObject.FindGameObjectWithTag("Party");
             party.gameObject.transform.position = pos;
-            
+
 
         }
+        else 
+            return false;
+
+        return true;
 
     }
 }
