@@ -51,8 +51,14 @@ public class KeyboardCommands : MonoBehaviour
         //save
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
-            locationList.GetComponent<SavingSystem>().Save();
-            this.popup.AddToQueue("Mappa salvata correttamente.");
+            if (locationList.GetComponent<SavingSystem>().Save())
+            {
+                this.popup.AddToQueue("Mappa salvata correttamente.");
+            } else
+            {
+                this.popup.AddToQueue("Errori nel salvare la mappa.");
+            }
+            
         }
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))

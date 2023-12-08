@@ -18,7 +18,7 @@ public class SavingSystem : MonoBehaviour
         Load();
     }
 
-    public void Save()
+    public bool Save()
     {
         //count the number of locations present
         locations = new LocationData[transform.childCount];
@@ -57,6 +57,8 @@ public class SavingSystem : MonoBehaviour
         bytesToEncode = Encoding.UTF8.GetBytes(json);
         encodedText = Convert.ToBase64String(bytesToEncode);
         File.WriteAllText(partyPath, encodedText);
+
+        return (File.Exists(locationPath) && File.Exists(partyPath));
     }
     
 
