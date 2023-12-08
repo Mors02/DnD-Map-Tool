@@ -36,6 +36,7 @@ public class SavingSystem : MonoBehaviour
             locations[i].lName = location.locationName;
             locations[i].iIndex = location.imageIndex;
             locations[i].hidden = location.hidden;
+            locations[i].dim = child.transform.localScale.x;
         }
 
         //Serialize the array
@@ -76,13 +77,13 @@ public class SavingSystem : MonoBehaviour
             string json = Encoding.UTF8.GetString(decodedBytes);
 
             locations = JsonHelper.FromJson<LocationData>(json);
-
+            
             foreach (LocationData location in locations)
             {
                 Vector2 pos = new Vector2(location.x, location.y);
                 GameObject loc = Instantiate(GameAssets.i.locationPrefab, pos, Quaternion.identity);
                 loc.transform.SetParent(this.gameObject.transform);
-                loc.GetComponent<Location>().Load(location.lName, location.iIndex, location.hidden);
+                loc.GetComponent<Location>().Load(location.lName, location.iIndex, location.hidden, location.dim);
             }
         }
         else 
@@ -93,7 +94,6 @@ public class SavingSystem : MonoBehaviour
             string encodedText = File.ReadAllText(partyPath);
             byte[] decodedBytes = Convert.FromBase64String(encodedText);
             string json = Encoding.UTF8.GetString(decodedBytes);
-
             LocationData partyData = JsonUtility.FromJson<LocationData>(json);
             Vector2 pos = new Vector2(partyData.x, partyData.y);
             GameObject party = GameObject.FindGameObjectWithTag("Party");
@@ -117,6 +117,7 @@ public class LocationData
     public string lName;
     public int iIndex;
     public bool hidden;
+    public float dim;
     /**
      * 
      * public LocationData(float x, float y, string lName, int iIndex)

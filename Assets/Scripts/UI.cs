@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
@@ -21,7 +22,10 @@ public class UI : MonoBehaviour
     Location currentLocation;
 
     [SerializeField]
-    TMP_InputField nameText;
+    TMP_InputField nameText, dimText;
+
+    bool visible;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +34,21 @@ public class UI : MonoBehaviour
         cm = Camera.main.GetComponent<CameraMovement>();
         sl = Camera.main.GetComponent<KeyboardCommands>();
         symbols = GameObject.FindGameObjectWithTag("Symbols").GetComponent<Symbols>();
-        this.OnClose();       
+        this.OnClose();
+
     }
-    
+
+    private void Update()
+    {
+        if (this.visible)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                this.Save();
+            }
+
+        }
+    }
 
     public void Close()
     {
@@ -41,7 +57,7 @@ public class UI : MonoBehaviour
 
     public void Save()
     {
-        this.currentLocation.Save(nameText.text, symbols.lastSelected);
+        this.currentLocation.Save(nameText.text, symbols.lastSelected, dimText.text);
         this.OnClose();
     }
 
@@ -49,6 +65,7 @@ public class UI : MonoBehaviour
     {
         cm.dragging = false;
         sl.dragging = false;
+        this.visible = false;
         this.rect.anchoredPosition = closePosition;
     }
 
@@ -60,6 +77,8 @@ public class UI : MonoBehaviour
         this.currentLocation = location;
         nameText.text = location.locationName;
         symbols.SetSelected(location.imageIndex);
+        dimText.text = location.transform.localScale.x.ToString("F1");
+        this.visible = true;
     }
 
     public void Hide()

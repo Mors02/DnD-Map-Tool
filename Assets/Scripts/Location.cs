@@ -25,10 +25,10 @@ public class Location : MonoBehaviour
 
     public bool hidden = true;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         canvas.worldCamera = Camera.main;
-        this.Save(locationName, imageIndex);
+        this.Save(locationName, imageIndex, "1");
     }
 
     public void Reveal()
@@ -48,18 +48,22 @@ public class Location : MonoBehaviour
         hidden = true;
     }
 
-    public void Save(string name, int imageIndex)
+    public void Save(string name, int imageIndex, string dim)
     {
         this.locationName = name;
         this.text.text = locationName;
         this.image.sprite = GameAssets.i.mapSymbols[imageIndex];
         //get the correct symbol sprite from the gameassets based on the imageindex returned
-        this.imageIndex = imageIndex;        
+        this.imageIndex = imageIndex;
+        
+        this.transform.localScale = new Vector2(float.Parse(dim), float.Parse(dim));
+        Debug.Log(transform.localScale);
     }
 
-    public void Load(string name, int imageIndex, bool hidden)
+    public void Load(string name, int imageIndex, bool hidden, float dim)
     {
-        Save(name, imageIndex);
+       // Debug.Log(width.ToString() + ", " + height.ToString());
+        Save(name, imageIndex, dim.ToString());
         if (!hidden)
         {
             this.Reveal();
