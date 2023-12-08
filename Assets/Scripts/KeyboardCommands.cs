@@ -13,6 +13,8 @@ public class KeyboardCommands : MonoBehaviour
 
     GameObject locationList;
 
+    PopupWindow popup;
+
     private void Start()
     {
         cam = Camera.main;
@@ -22,7 +24,7 @@ public class KeyboardCommands : MonoBehaviour
             screen.SetActive(false);
 
         this.locationList = GameObject.FindGameObjectWithTag("LocationList");
-
+        this.popup = GameObject.Find("UI").GetComponent<PopupWindow>();
     }
 
     private void Update()
@@ -50,6 +52,19 @@ public class KeyboardCommands : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
             locationList.GetComponent<SavingSystem>().Save();
+            this.popup.AddToQueue("Mappa salvata correttamente.");
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+        {
+            if (locationList.GetComponent<SavingSystem>().Load())
+            {
+                this.popup.AddToQueue("Mappa caricata correttamente.");
+            } else
+            {
+                this.popup.AddToQueue("Errori nel caricare la mappa.");
+            }
+            
         }
     }
 }
