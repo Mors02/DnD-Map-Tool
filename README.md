@@ -6,3 +6,5 @@ Still ongoing in development, right now supports:
  - Name and image personalization for locations
  - Add location with Ctrl + E
  - Show DM screen for notes with Ctrl + D
+ - Save your map with Ctrl + S
+ - Load your map with Ctrl + L
