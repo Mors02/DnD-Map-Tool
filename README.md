@@ -8,3 +8,4 @@ Still ongoing in development, right now supports:
  - Show DM screen for notes with Ctrl + D
  - Save your map with Ctrl + S
  - Load your map with Ctrl + L
+ - Screenshot your map with Ctrl + H
