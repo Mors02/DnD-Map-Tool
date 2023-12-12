@@ -19,3 +19,5 @@ To be complete, the scene must be created like this:
 - Main Camera [PREFAB]
 - Party [PREFAB]
 - LocationList [PREFAB]
+
+Also check that the AssetManager has all the assets needed.
