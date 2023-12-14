@@ -71,8 +71,7 @@ public class KeyboardCommands : MonoBehaviour
     }
 
     public void LoadProject(Project proj)
-    {
-        Debug.Log(proj.dirName);
+    {        
         if (locationList.GetComponent<SavingSystem>().Load(proj.dirName))
         {
             this.popup.AddToQueue("Mappa caricata correttamente.");

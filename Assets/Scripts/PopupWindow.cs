@@ -11,7 +11,6 @@ public class PopupWindow : MonoBehaviour
     private Animator popupAnimator;
 
     private Queue<string> popupQueue;
-    private bool isActive;
 
     private Coroutine queueChecker;
 
@@ -35,7 +34,6 @@ public class PopupWindow : MonoBehaviour
 
     private void ShowPopup(string text)
     {
-        isActive = true;
         window.SetActive(true);
         popupText.text = text;
         popupAnimator.Play("popup_show");
@@ -51,7 +49,6 @@ public class PopupWindow : MonoBehaviour
                 yield return null;
             } while (!popupAnimator.GetCurrentAnimatorStateInfo(0).IsTag("idle"));
         } while (popupQueue.Count > 0);
-        isActive = false;
         window.SetActive(false);
         queueChecker = null;
     }

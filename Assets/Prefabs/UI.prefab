@@ -2925,8 +2925,8 @@ RectTransform:
   - {fileID: 3273396595068139869}
   m_Father: {fileID: 3091690565474966499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3118,7 +3118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 8823084571343044350}
   projNum: 0
-  lastSelected: 0
+  lastSelected: -1
   openPosition: {x: 3, y: 20}
   closePosition: {x: 3, y: 700}
   newProj: {fileID: 5013329465184760467}
@@ -6773,7 +6773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00018310547, y: 0}
+  m_AnchoredPosition: {x: -0.000013671815, y: 0.0000066456105}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2102674905317563636
@@ -6923,7 +6923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.0705961}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5122187147627051283

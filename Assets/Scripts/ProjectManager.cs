@@ -35,14 +35,17 @@ public class ProjectManager : MonoBehaviour
     CameraMovement cm;
     KeyboardCommands sl;
 
+    PopupWindow popup;
+
     // Start is called before the first frame update
     void Start()
     {
         this.rect = gameObject.GetComponent<RectTransform>();
         cm = Camera.main.GetComponent<CameraMovement>();
         sl = Camera.main.GetComponent<KeyboardCommands>();
+        this.popup = GameObject.Find("UI").GetComponent<PopupWindow>();
 
-        this.Close();
+        //this.Close();
 
         this.RetrieveProjects();
 
@@ -53,10 +56,10 @@ public class ProjectManager : MonoBehaviour
     public void OpenProject(Project proj, int index)
     {
         proj.IsSelected(true);
+        loadButton.interactable = true;
         if (lastSelected != -1)
         {
             //deleteButton.interactable = true;
-            loadButton.interactable = true;
             projects[lastSelected].IsSelected(false);
         }
         lastSelected = index;
@@ -92,12 +95,13 @@ public class ProjectManager : MonoBehaviour
     public void ConfirmProjectName()
     {
         string dirPath = Application.persistentDataPath + "/" + dirName.text;
-        dirName.text = "";
         if (Directory.Exists(dirPath))
         {
-            Debug.Log(dirName.text + " already exists");
-        } else
+            this.popup.AddToQueue("Il progetto " + dirName.text + " esiste gia'.");
+        } 
+        else
         {
+            dirName.text = "";
             Directory.CreateDirectory(dirPath);
             this.RetrieveProjects();
             this.UndoNewProject();
