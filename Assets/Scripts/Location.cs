@@ -57,7 +57,6 @@ public class Location : MonoBehaviour
         this.imageIndex = imageIndex;
         
         this.transform.localScale = new Vector2(float.Parse(dim), float.Parse(dim));
-        Debug.Log(transform.localScale);
     }
 
     public void Load(string name, int imageIndex, bool hidden, float dim)

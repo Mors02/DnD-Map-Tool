@@ -8,6 +8,7 @@ TagManager:
   - DMScreen
   - Symbols
   - LocationList
+  - ProjectSelect
   layers:
   - Default
   - TransparentFX

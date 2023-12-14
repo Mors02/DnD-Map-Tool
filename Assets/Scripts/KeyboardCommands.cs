@@ -13,6 +13,8 @@ public class KeyboardCommands : MonoBehaviour
 
     GameObject locationList;
 
+    ProjectManager pm;
+
     PopupWindow popup;
 
     private void Start()
@@ -25,6 +27,7 @@ public class KeyboardCommands : MonoBehaviour
 
         this.locationList = GameObject.FindGameObjectWithTag("LocationList");
         this.popup = GameObject.Find("UI").GetComponent<PopupWindow>();
+        this.pm = GameObject.FindGameObjectWithTag("ProjectSelect").GetComponent<ProjectManager>();
     }
 
     private void Update()
@@ -63,14 +66,19 @@ public class KeyboardCommands : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
         {
-            if (locationList.GetComponent<SavingSystem>().Load())
-            {
-                this.popup.AddToQueue("Mappa caricata correttamente.");
-            } else
-            {
-                this.popup.AddToQueue("Errori nel caricare la mappa.");
-            }
-            
+            this.pm.Show();
+        }
+    }
+
+    public void LoadProject(Project proj)
+    {        
+        if (locationList.GetComponent<SavingSystem>().Load(proj.dirName))
+        {
+            this.popup.AddToQueue("Mappa caricata correttamente.");
+        }
+        else
+        {
+            this.popup.AddToQueue("Errori nel caricare la mappa.");
         }
     }
 }

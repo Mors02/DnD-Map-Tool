@@ -32,4 +32,5 @@ public class GameAssets : MonoBehaviour
     public GameObject locationPrefab;
     public GameObject buttonPrefab;
     public GameObject partyPrefab;
+    public GameObject projectPrefab;
 }
