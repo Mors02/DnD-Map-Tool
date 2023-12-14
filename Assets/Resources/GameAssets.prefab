@@ -55,3 +55,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bb6848aec6dbab648b078c56b071a2da, type: 3}
   locationPrefab: {fileID: 7696654249886556055, guid: 11e53eac25fce744e8a40a996c783ca7, type: 3}
   buttonPrefab: {fileID: 6456629423863951820, guid: 565e274a0cff6dd43864e4048eb93e8b, type: 3}
+  partyPrefab: {fileID: 4037211746307294098, guid: 51a11a40e84aa664f96b11f0613e4d73, type: 3}
+  projectPrefab: {fileID: 3870545089330713820, guid: f72b75162760293469b115c9c0b5b6d3, type: 3}

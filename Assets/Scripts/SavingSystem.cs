@@ -9,13 +9,19 @@ public class SavingSystem : MonoBehaviour
 {
     public LocationData[] locations;
 
-    public string locationPath, partyPath;
+    public string locationPath, partyPath, dirName;
     // Start is called before the first frame update
     void Start()
     {
         locationPath = Application.persistentDataPath + "/LocationData.dat";
         partyPath = Application.persistentDataPath + "/PartyData.dat";
-        Load();
+        //Load();
+    }
+
+    public void CreatePaths()
+    {
+        locationPath = Application.persistentDataPath + this.dirName + "/LocationData.dat";
+        partyPath = Application.persistentDataPath + this.dirName + "/PartyData.dat";
     }
 
     public bool Save()
@@ -63,15 +69,19 @@ public class SavingSystem : MonoBehaviour
     }
     
 
-    public bool Load()
+    public bool Load(string dirName)
     {
+        this.dirName = "/" + dirName;
+
+        this.CreatePaths();
+
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         if (File.Exists(locationPath))
         {
-            foreach(Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
-
             string encodedText = File.ReadAllText(locationPath);
             byte[] decodedBytes = Convert.FromBase64String(encodedText);
             string json = Encoding.UTF8.GetString(decodedBytes);
