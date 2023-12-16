@@ -17,6 +17,8 @@ public class KeyboardCommands : MonoBehaviour
 
     PopupWindow popup;
 
+    ChangeBackground cb;
+
     private void Start()
     {
         cam = Camera.main;
@@ -28,6 +30,7 @@ public class KeyboardCommands : MonoBehaviour
         this.locationList = GameObject.FindGameObjectWithTag("LocationList");
         this.popup = GameObject.Find("UI").GetComponent<PopupWindow>();
         this.pm = GameObject.FindGameObjectWithTag("ProjectSelect").GetComponent<ProjectManager>();
+        this.cb = GameObject.Find("background").GetComponent<ChangeBackground>();
     }
 
     private void Update()
@@ -64,10 +67,19 @@ public class KeyboardCommands : MonoBehaviour
             
         }
 
+        //change background
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
         {
             this.pm.Show();
         }
+
+
+        //change background
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
+        {
+            cb.OpenExplorer();
+        }
+
     }
 
     public void LoadProject(Project proj)
