@@ -15,7 +15,7 @@ public class ProjectManager : MonoBehaviour
 
     Project[] projects;
 
-    public int projNum = 0, lastSelected = -1;
+    public int projNum = 0, lastSelected = -1, openProject = -1;
 
     [SerializeField]
     Vector2 openPosition = new Vector2(3, -20);
@@ -27,10 +27,13 @@ public class ProjectManager : MonoBehaviour
     GameObject newProj;
 
     [SerializeField]
+    GameObject confirmProj;
+
+    [SerializeField]
     TMP_InputField dirName;
 
     [SerializeField]
-    Button deleteButton, loadButton;
+    Button deleteButton, loadButton, cancelButton;
 
     CameraMovement cm;
     KeyboardCommands sl;
@@ -53,6 +56,7 @@ public class ProjectManager : MonoBehaviour
 
     }
 
+    //this function select the project to open
     public void OpenProject(Project proj, int index)
     {
         proj.IsSelected(true);
@@ -67,12 +71,47 @@ public class ProjectManager : MonoBehaviour
         //Camera.main.GetComponent<KeyboardCommands>().LoadProject(proj);
     }
 
+    //this function opens the confirm panel
+    public void OpenConfirm()
+    {
+        Debug.Log(openProject);
+        if (openProject != -1)
+            this.confirmProj.SetActive(true);
+        else
+            this.LoadProject();
+    }
+
+    //this function closes the confirm panel
+    public void CloseConfirm()
+    {
+        this.confirmProj.GetComponent<ShowLastSave>().UpdateCounter();
+        this.confirmProj.SetActive(false);
+    }
+
+    //This function loads the selected project and closes all the panels
     public void LoadProject()
     {
         Camera.main.GetComponent<KeyboardCommands>().LoadProject(projects[lastSelected]);
+        cancelButton.interactable = true;
+        this.CloseConfirm();
         this.Close();
+        this.openProject = lastSelected;
+
     }
 
+    //This function saves the current project, loads the selected project and closes all the panels
+    public void SaveAndLoadProject()
+    {
+        KeyboardCommands key = Camera.main.GetComponent<KeyboardCommands>();
+        key.Save();
+        key.LoadProject(projects[lastSelected]);
+        cancelButton.interactable = true;
+        this.CloseConfirm();
+        this.Close();
+        this.openProject = lastSelected;
+    }
+
+    //this function opens the load project panel
     public void Show()
     {
         this.rect.anchoredPosition = openPosition;
@@ -80,6 +119,7 @@ public class ProjectManager : MonoBehaviour
         sl.dragging = true;
     }
 
+    //this function closes the load project panel
     public void Close()
     {
         this.rect.anchoredPosition = closePosition;
@@ -87,11 +127,13 @@ public class ProjectManager : MonoBehaviour
         sl.dragging = false;
     }
 
+    //this function opens the new project panel
     public void NewProject()
     {
         this.newProj.SetActive(true);
     }
 
+    //this function closes the new project panel and creates the project
     public void ConfirmProjectName()
     {
         string dirPath = Application.persistentDataPath + "/" + dirName.text;
@@ -108,11 +150,13 @@ public class ProjectManager : MonoBehaviour
         }
     }
 
+    //this function closes the new project panel
     public void UndoNewProject()
     {
         this.newProj.SetActive(false);
     }
 
+    //this function retrieves all the projects folders
     public void RetrieveProjects()
     {
         foreach(Transform child in this.parent.transform)

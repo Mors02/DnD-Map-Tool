@@ -13,12 +13,21 @@ public class SavingSystem : MonoBehaviour
     public ChangeBackground cb;
 
     public string locationPath, partyPath, basePath, backgroundPath, dirName;
+
+    public static float lastSave;
     // Start is called before the first frame update
     void Start()
     {
         CreatePaths();
         this.cb = GameObject.Find("background").GetComponent<ChangeBackground>();
+        this.StartCoroutine(PeriodicSave());
+        SavingSystem.lastSave = 0;
         //Load();
+    }
+
+    public void Update()
+    {
+        SavingSystem.lastSave += Time.deltaTime;
     }
 
     public void CreatePaths()
@@ -29,8 +38,26 @@ public class SavingSystem : MonoBehaviour
         backgroundPath = basePath + "/BackgroundImage.dat";
     }
 
-    public bool Save()
+    IEnumerator PeriodicSave()
     {
+        while(true)
+        {
+            //save every 10minutes
+            yield return new WaitForSeconds(600);
+            //Debug.Log("autosave");
+            OperationResult op = Save();
+            //Debug.Log(op.message);
+        }
+    }
+
+    public OperationResult Save()
+    {
+        //no project selected so no saving
+        if (this.dirName == "")
+        {
+            return new OperationResult("Nessun progetto selezionato.", true);
+        }
+
         //count the number of locations present
         locations = new LocationData[transform.childCount];
 
@@ -71,23 +98,33 @@ public class SavingSystem : MonoBehaviour
         File.WriteAllText(partyPath, encodedText);
 
         //Get the background
-        BackgroundData bData = new BackgroundData();
-        bData.textureBytes = cb.tex.EncodeToPNG();
-        /*BinaryFormatter formatter = new BinaryFormatter();
-        FileStream file = File.Create(backgroundPath);
-        formatter.Serialize(file, bData);
-        file.Close();*/
-        json = JsonUtility.ToJson(bData);
-        bytesToEncode = Encoding.UTF8.GetBytes(json);
-        encodedText = Convert.ToBase64String(bytesToEncode);
-        File.WriteAllText(backgroundPath, encodedText);
+        if (cb.tex != null)
+        {
+            BackgroundData bData = new BackgroundData();
+            bData.textureBytes = cb.tex.EncodeToPNG();
+            /*BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Create(backgroundPath);
+            formatter.Serialize(file, bData);
+            file.Close();*/
+            json = JsonUtility.ToJson(bData);
+            bytesToEncode = Encoding.UTF8.GetBytes(json);
+            encodedText = Convert.ToBase64String(bytesToEncode);
+            File.WriteAllText(backgroundPath, encodedText);
+        }
+        
 
 
-        return (File.Exists(locationPath) && File.Exists(partyPath) && File.Exists(backgroundPath));
+        if ( (File.Exists(locationPath) && File.Exists(partyPath) && File.Exists(backgroundPath)) )
+        {
+            SavingSystem.lastSave = 0;
+            return new OperationResult("Progetto salvato correttamente.", false);
+        }
+
+        return new OperationResult("Errori nel salvataggio.", true);
     }
     
 
-    public bool Load(string dirName)
+    public OperationResult Load(string dirName)
     {
         this.dirName = "/" + dirName;
 
@@ -115,7 +152,7 @@ public class SavingSystem : MonoBehaviour
             }
         }
         else 
-            return false;
+            return new OperationResult("Errori nel caricamento delle locazioni.", true);
 
         if (File.Exists(partyPath))
         {
@@ -129,8 +166,8 @@ public class SavingSystem : MonoBehaviour
 
 
         }
-        else 
-            return false;
+        else
+            return new OperationResult("Errori nel caricamento del party.", true);
 
         if (File.Exists(backgroundPath))
         {
@@ -147,8 +184,10 @@ public class SavingSystem : MonoBehaviour
 
             cb.LoadImage(tex);
         }
+        else
+            return new OperationResult("Errori nel caricamento del background.", true);
 
-        return true;
+        return new OperationResult("Progetto caricato correttamente", false); ;
 
     }
 }
@@ -178,4 +217,16 @@ public class LocationData
 public class BackgroundData
 {
     public byte[] textureBytes;
+}
+
+public class OperationResult
+{
+    public string message;
+    public bool error;
+
+    public OperationResult(string m, bool e)
+    {
+        message = m;
+        error = e;
+    }
 }

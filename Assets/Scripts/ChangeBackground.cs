@@ -63,7 +63,6 @@ public class ChangeBackground : MonoBehaviour
         float width = tex.width, height = tex.height;
         
         float desiredPpu = (width / 3840f) * 100; //3840 is the desired size
-        Debug.Log(desiredPpu);
         sRenderer.sprite = Sprite.Create(tex, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f), desiredPpu);
     }
 }

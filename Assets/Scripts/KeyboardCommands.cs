@@ -57,14 +57,8 @@ public class KeyboardCommands : MonoBehaviour
         //save
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
-            if (locationList.GetComponent<SavingSystem>().Save())
-            {
-                this.popup.AddToQueue("Mappa salvata correttamente.");
-            } else
-            {
-                this.popup.AddToQueue("Errori nel salvare la mappa.");
-            }
-            
+            OperationResult op = this.Save();
+            popup.AddToQueue(op.message);
         }
 
         //change background
@@ -83,14 +77,13 @@ public class KeyboardCommands : MonoBehaviour
     }
 
     public void LoadProject(Project proj)
-    {        
-        if (locationList.GetComponent<SavingSystem>().Load(proj.dirName))
-        {
-            this.popup.AddToQueue("Mappa caricata correttamente.");
-        }
-        else
-        {
-            this.popup.AddToQueue("Errori nel caricare la mappa.");
-        }
+    {
+        OperationResult op = locationList.GetComponent<SavingSystem>().Load(proj.dirName);
+        popup.AddToQueue(op.message);
+    }
+
+    public OperationResult Save()
+    {
+        return locationList.GetComponent<SavingSystem>().Save();
     }
 }
