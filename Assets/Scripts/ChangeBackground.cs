@@ -8,8 +8,8 @@ using UnityEngine.Networking;
 
 public class ChangeBackground : MonoBehaviour
 {
-    string path; 
-    public RawImage image;
+    string path;
+    public Texture2D tex;
     [SerializeField]
     SpriteRenderer sRenderer;
     
@@ -49,15 +49,21 @@ public class ChangeBackground : MonoBehaviour
         else
         {
             //image.texture = .texture;
-            Texture2D tex = (((DownloadHandlerTexture)request.downloadHandler).texture as Texture2D);
-            float width = tex.width, height = tex.height;
-            float desiredPpu = (38.4f/width) * 100; //3840 / 100
-            Debug.Log(desiredPpu);
-            sRenderer.sprite = Sprite.Create(tex, new Rect(-0, -0, width, height), new Vector2(0.5f, 0.5f), desiredPpu);
+            tex = (((DownloadHandlerTexture)request.downloadHandler).texture as Texture2D);
+            LoadImage(tex);
 
            // Debug.Log( *100 + " " + sRenderer.bounds.size.y*100);
             //background.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         }
             
+    }
+
+    public void LoadImage(Texture2D tex)
+    {
+        float width = tex.width, height = tex.height;
+        
+        float desiredPpu = (width / 3840f) * 100; //3840 is the desired size
+        Debug.Log(desiredPpu);
+        sRenderer.sprite = Sprite.Create(tex, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f), desiredPpu);
     }
 }

@@ -4,24 +4,29 @@ using UnityEngine;
 using System;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class SavingSystem : MonoBehaviour
 {
     public LocationData[] locations;
 
-    public string locationPath, partyPath, dirName;
+    public ChangeBackground cb;
+
+    public string locationPath, partyPath, basePath, backgroundPath, dirName;
     // Start is called before the first frame update
     void Start()
     {
-        locationPath = Application.persistentDataPath + "/LocationData.dat";
-        partyPath = Application.persistentDataPath + "/PartyData.dat";
+        CreatePaths();
+        this.cb = GameObject.Find("background").GetComponent<ChangeBackground>();
         //Load();
     }
 
     public void CreatePaths()
     {
-        locationPath = Application.persistentDataPath + this.dirName + "/LocationData.dat";
-        partyPath = Application.persistentDataPath + this.dirName + "/PartyData.dat";
+        basePath = Application.persistentDataPath + this.dirName;
+        locationPath = basePath + "/LocationData.dat";
+        partyPath = basePath + "/PartyData.dat";
+        backgroundPath = basePath + "/BackgroundImage.dat";
     }
 
     public bool Save()
@@ -65,7 +70,20 @@ public class SavingSystem : MonoBehaviour
         encodedText = Convert.ToBase64String(bytesToEncode);
         File.WriteAllText(partyPath, encodedText);
 
-        return (File.Exists(locationPath) && File.Exists(partyPath));
+        //Get the background
+        BackgroundData bData = new BackgroundData();
+        bData.textureBytes = cb.tex.EncodeToPNG();
+        /*BinaryFormatter formatter = new BinaryFormatter();
+        FileStream file = File.Create(backgroundPath);
+        formatter.Serialize(file, bData);
+        file.Close();*/
+        json = JsonUtility.ToJson(bData);
+        bytesToEncode = Encoding.UTF8.GetBytes(json);
+        encodedText = Convert.ToBase64String(bytesToEncode);
+        File.WriteAllText(backgroundPath, encodedText);
+
+
+        return (File.Exists(locationPath) && File.Exists(partyPath) && File.Exists(backgroundPath));
     }
     
 
@@ -114,6 +132,22 @@ public class SavingSystem : MonoBehaviour
         else 
             return false;
 
+        if (File.Exists(backgroundPath))
+        {
+            /*BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Open(backgroundPath, FileMode.Open);
+            BackgroundData bData = (BackgroundData)formatter.Deserialize(file);
+            file.Close();*/
+            string encodedText = File.ReadAllText(backgroundPath);
+            byte[] decodedBytes = Convert.FromBase64String(encodedText);
+            string json = Encoding.UTF8.GetString(decodedBytes);
+            BackgroundData bData = JsonUtility.FromJson<BackgroundData>(json);
+            Texture2D tex = new Texture2D(1, 1);
+            tex.LoadImage(bData.textureBytes);
+
+            cb.LoadImage(tex);
+        }
+
         return true;
 
     }
@@ -138,4 +172,10 @@ public class LocationData
         this.iIndex = iIndex;
     }
      */
+}
+
+[Serializable]
+public class BackgroundData
+{
+    public byte[] textureBytes;
 }
