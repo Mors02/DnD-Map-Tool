@@ -9,7 +9,7 @@ Still ongoing in development, right now supports:
  - Save your map with Ctrl + S
  - Load your map with Ctrl + L
  - Screenshot your map with Ctrl + H
-
+ - Change background with Ctrl + Q
 
 # SCENE COMPOSITION
 To be complete, the scene must be created like this:
