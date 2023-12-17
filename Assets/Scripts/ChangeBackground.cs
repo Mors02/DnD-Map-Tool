@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.IO;
 using UnityEngine.Networking;
+using SFB;
 
 public class ChangeBackground : MonoBehaviour
 {
@@ -22,7 +23,11 @@ public class ChangeBackground : MonoBehaviour
 
     public void OpenExplorer()
     {
-        path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
+        var extensions = new[] {
+        new ExtensionFilter("Image Files", "png", "jpg", "jpeg" )
+        };
+        path = StandaloneFileBrowser.OpenFilePanel("Overwrite with png", "", extensions, false)[0];
+            //OpenFilePanel("Overwrite with png", "", "png");
         GetImage();
     }
 

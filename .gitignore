@@ -26,6 +26,8 @@
 # Scenes
 /[Aa]ssets/[Ss]cenes/
 
+/[Bb]uild/
+
 # Visual Studio cache directory
 .vs/
 
