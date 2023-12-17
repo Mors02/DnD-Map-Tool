@@ -33,7 +33,7 @@ public class ProjectManager : MonoBehaviour
     TMP_InputField dirName;
 
     [SerializeField]
-    Button deleteButton, loadButton, cancelButton;
+    Button deleteButton, loadButton, cancelButton, commandsButton;
 
     CameraMovement cm;
     KeyboardCommands sl;
@@ -74,7 +74,6 @@ public class ProjectManager : MonoBehaviour
     //this function opens the confirm panel
     public void OpenConfirm()
     {
-        Debug.Log(openProject);
         if (openProject != -1)
             this.confirmProj.SetActive(true);
         else
@@ -91,6 +90,7 @@ public class ProjectManager : MonoBehaviour
     //This function loads the selected project and closes all the panels
     public void LoadProject()
     {
+        commandsButton.interactable = true;
         Camera.main.GetComponent<KeyboardCommands>().LoadProject(projects[lastSelected]);
         cancelButton.interactable = true;
         this.CloseConfirm();
