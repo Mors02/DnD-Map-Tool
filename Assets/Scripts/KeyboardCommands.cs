@@ -42,38 +42,39 @@ public class KeyboardCommands : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.E))
         {
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
-            GameObject loc = Instantiate(GameAssets.i.locationPrefab, pos, Quaternion.identity);
-            loc.transform.SetParent(locationList.transform);
-
+            this.Spawn(pos);
         }
 
         //show dm screen
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D))
         {
-            if (screen != null)
-                screen.SetActive(!screen.activeSelf);
+            this.Screen();
         }
 
         //save
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
-            OperationResult op = this.Save();
-            popup.AddToQueue(op.message);
+            this.Save();
         }
 
-        //change background
+        //load
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
         {
-            this.pm.Show();
+            this.Load();
         }
 
 
         //change background
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
         {
-            cb.OpenExplorer();
+            this.ChangeBackground();
         }
 
+    }
+
+    public void Load()
+    {
+        this.pm.Show();
     }
 
     public void LoadProject(Project proj)
@@ -84,6 +85,26 @@ public class KeyboardCommands : MonoBehaviour
 
     public OperationResult Save()
     {
-        return locationList.GetComponent<SavingSystem>().Save();
+        OperationResult op = locationList.GetComponent<SavingSystem>().Save();
+        popup.AddToQueue(op.message);
+        return op;
     }
+
+    public void ChangeBackground()
+    {
+        cb.OpenExplorer();
+    }
+
+    public void Screen()
+    {
+        if (screen != null)
+            screen.SetActive(!screen.activeSelf);
+    }
+
+    public void Spawn(Vector2 pos)
+    {
+        GameObject loc = Instantiate(GameAssets.i.locationPrefab, pos, Quaternion.identity);
+        loc.transform.SetParent(locationList.transform);
+    }
+    
 }
