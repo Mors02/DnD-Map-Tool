@@ -61,4 +61,9 @@ public class DropdownMenu : MonoBehaviour
         kb.Spawn(new Vector2(0, 0));
     }
 
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
 }
