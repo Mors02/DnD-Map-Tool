@@ -30,6 +30,9 @@ public class ProjectManager : MonoBehaviour
     GameObject confirmProj;
 
     [SerializeField]
+    DriveManager dm;
+
+    [SerializeField]
     TMP_InputField dirName;
 
     [SerializeField]
@@ -156,6 +159,12 @@ public class ProjectManager : MonoBehaviour
         this.newProj.SetActive(false);
     }
 
+    public void OpenDriveSelect()
+    {
+        this.Close();
+        this.dm.Show();
+    }
+
     //this function retrieves all the projects folders
     public void RetrieveProjects()
     {
@@ -173,7 +182,7 @@ public class ProjectManager : MonoBehaviour
             
             foreach (var dir in d.GetDirectories())
             {
-                Debug.Log(dir.Name);
+                //Debug.Log(dir.Name);
                 GameObject button = Instantiate(GameAssets.i.projectPrefab, parent.transform);
                 Project proj = button.GetComponent<Project>();
                 proj.SetUp(dir.FullName, dir.Name);
