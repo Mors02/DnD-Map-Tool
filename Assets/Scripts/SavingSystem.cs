@@ -152,7 +152,7 @@ public class SavingSystem : MonoBehaviour
             }
         }
         else 
-            return new OperationResult("Errori nel caricamento delle locazioni.", true);
+            return new OperationResult("Error loading locations.", true);
 
         if (File.Exists(partyPath))
         {
@@ -167,7 +167,7 @@ public class SavingSystem : MonoBehaviour
 
         }
         else
-            return new OperationResult("Errori nel caricamento del party.", true);
+            return new OperationResult("Error loading party.", true);
 
         if (File.Exists(backgroundPath))
         {
@@ -185,9 +185,9 @@ public class SavingSystem : MonoBehaviour
             cb.LoadImage(tex);
         }
         else
-            return new OperationResult("Errori nel caricamento del background.", true);
+            return new OperationResult("Error loading background.", true);
 
-        return new OperationResult("Progetto caricato correttamente", false); ;
+        return new OperationResult("Project correctly loaded", false); ;
 
     }
 }

@@ -139,7 +139,7 @@ public class ProjectManager : MonoBehaviour
         string dirPath = Application.persistentDataPath + "/" + dirName.text;
         if (Directory.Exists(dirPath))
         {
-            this.popup.AddToQueue("Il progetto " + dirName.text + " esiste gia'.");
+            this.popup.AddToQueue("The project " + dirName.text + " already exists.");
         } 
         else
         {
